@@ -15,6 +15,7 @@
     </div>
 
     <div>
+        @Html.Label("Species")
         <select asp-for="Cat.SpeciesId" asp-items="Model.SpeciesSelectList" class="form-control"> 
             <option value="">Select something</option> 
         </select>

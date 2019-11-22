@@ -55,12 +55,13 @@ namespace AnimalCrossing.Controllers
         [HttpPost]
         public IActionResult Create(AnimalCatVM vm)
         {
-            if (ModelState.IsValid) {
+            if (ModelState.IsValid)
+            {
                 ViewBag.Thanks = vm.Cat.Name;
                 ViewBag.Cat = vm.Cat;
 
                 animalRepository.Save(vm.Cat);
-                
+
                 return View("Thanks", vm.Cat);
             }
 
@@ -77,8 +78,6 @@ namespace AnimalCrossing.Controllers
             Cat cat = animalRepository.Get(id);
             AnimalCatVM vm = ViewModelCreator.CreateAnimalCatVm(speciesRepository);
             vm.Cat = cat;
-
-
 
             return View(vm);
         }
