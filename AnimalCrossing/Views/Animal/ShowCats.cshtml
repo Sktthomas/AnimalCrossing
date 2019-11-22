@@ -1,0 +1,30 @@
+﻿@model List<Cat>
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<form asp-controller="Animal" asp-action="Index">
+    <p>
+        Title: <input type="text" name="SearchString">
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+<div class="container">
+    <div class="row">
+    @foreach(var item in Model)
+    {
+      <div class="card col-12 col-sm-6 col-lg-3 col-xl-2">
+        <img src="@Url.Content(item.ProfilePicture)" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">@item.Name</h5>
+            <p class="card-text">@item.Description</p>
+            <a asp-controller="Animal" asp-action="Edit" asp-route-id="@item.CatId" class="btn btn-primary">Go somewhere</a>
+          </div>
+        </div>
+    }
+    </div>
+</div>

@@ -1,0 +1,8 @@
+﻿@model AnimalCrossing.Models.ViewModels.AnimalCatVM
+
+
+@using (Html.BeginForm()) {
+    @await Html.PartialAsync("_CatForm", Model)
+
+    @Html.HiddenFor(x => x.Cat.CatId)
+}

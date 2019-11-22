@@ -1,0 +1,36 @@
+﻿@using AnimalCrossing.Models.ViewModels;
+
+@model AnimalCatVM;
+
+    @Html.ValidationSummary()
+    <div>
+        @Html.LabelFor(x => x.Cat.Name)
+        @Html.TextBoxFor(x => x.Cat.Name, new { @class = "form-control" })
+        <span asp-validation-for="Cat.Name" class="text-danger"></span>
+    </div>
+
+    <div>
+        @Html.LabelFor(x => x.Cat.Description)
+        @Html.TextBoxFor(x => x.Cat.Description, new { @class = "form-control" })
+    </div>
+
+    <div>
+        <select asp-for="Cat.SpeciesId" asp-items="Model.SpeciesSelectList" class="form-control"> 
+            <option value="">Select something</option> 
+        </select>
+
+    </div>
+
+
+    <div>
+        @Html.LabelFor(x => x.Cat.Gender)
+
+        @Html.DropDownListFor(x => x.Cat.Gender, Html.GetEnumSelectList<Gender>(), "Select your cats Gender")
+    </div>
+
+    <div>
+        @Html.LabelFor(x => x.Cat.ProfilePicture)
+        @Html.TextBoxFor(x => x.Cat.ProfilePicture)
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Cat</button>
