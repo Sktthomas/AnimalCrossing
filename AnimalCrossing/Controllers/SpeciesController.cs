@@ -20,7 +20,7 @@ namespace AnimalCrossing.Controllers
         }
 
         // GET: Species
-        public IActionResult Index()
+        public IActionResult Index() //Should not be asynchronous
         {
             return View(repo.Get());
         }
@@ -59,7 +59,7 @@ namespace AnimalCrossing.Controllers
             {
                 repo.Save(species);
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index)); //Runs the action named Index in this controller
             }
             return View(species);
         }
@@ -143,7 +143,8 @@ namespace AnimalCrossing.Controllers
 
         private bool SpeciesExists(int id)
         {
-            // I did this so we could unit test. TODO: Fix this..
+            // return _context.Species.Any(e => e.SpeciesId == id);
+            //This returns false so that we can unit test for now
             return false;
         }
     }

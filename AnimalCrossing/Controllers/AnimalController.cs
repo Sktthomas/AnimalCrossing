@@ -13,11 +13,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace AnimalCrossing.Controllers
 {
-    //[Authorize]
+    //[Authorize] Has been turned off to facilitate test usage of program. Turn this on to block off parts of the program from unauthorized use
     public class AnimalController : Controller
     {
         private readonly IAnimalRepository animalRepository;
         private readonly ISpeciesRepository speciesRepository;
+        private readonly AnimalCrossingContext _context;
 
         public AnimalController(IAnimalRepository animalRepo, ISpeciesRepository s)
         {
@@ -55,13 +56,12 @@ namespace AnimalCrossing.Controllers
         [HttpPost]
         public IActionResult Create(AnimalCatVM vm)
         {
-            if (ModelState.IsValid)
-            {
+            if (ModelState.IsValid) {
                 ViewBag.Thanks = vm.Cat.Name;
                 ViewBag.Cat = vm.Cat;
 
                 animalRepository.Save(vm.Cat);
-
+                
                 return View("Thanks", vm.Cat);
             }
 
@@ -79,6 +79,8 @@ namespace AnimalCrossing.Controllers
             AnimalCatVM vm = ViewModelCreator.CreateAnimalCatVm(speciesRepository);
             vm.Cat = cat;
 
+
+
             return View(vm);
         }
 
@@ -94,6 +96,13 @@ namespace AnimalCrossing.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            animalRepository.Delete(id);
+
+            return Json("200 OK");
+        }
 
     }
 }

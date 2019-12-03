@@ -45,7 +45,7 @@ namespace AnimalCrossing
                 //    pageName: "/Account/Login",
                 //    route: "Identity/Account/Login");
                 //options.Conventions.AuthorizeAreaPage("Identity", "/Account/Logout");
-                //options.Conventions.AuthorizeAreaPage("Admin", "/Index");
+                //options.Conventions.AuthorizeAreaPage("Admin", "/Index");D
                 //options.Conventions.AuthorizeAreaFolder("Admin", "/Users");
             //});
 

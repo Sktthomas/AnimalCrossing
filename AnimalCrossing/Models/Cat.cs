@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+using Newtonsoft.Json.Converters;
 
 namespace AnimalCrossing.Models
 {
@@ -19,34 +22,32 @@ namespace AnimalCrossing.Models
         //}
 
 
-        //if the name is .e.g. CatId, entity framework will pick it up and use it as primary key, convention over configuration (it follows the rules setup)
-
-
+        // If the name is *class_name*Id
+        
         public int CatId { get; set; }
 
-
-        [Required(ErrorMessage = "All cats must have a name to be a pet")] //Using ErrorMessage displays a custom error message
-        [RegularExpression(@"^[A-Z]+[a-zA-Z""'\s-]*$", ErrorMessage = "No special characters allowed. First character must be uppercase"), MaxLength(30, ErrorMessage = "Your cat's name is too long"), MinLength(3, ErrorMessage = "Your cat's name is too short")]
+        
+        [Required(ErrorMessage = "All cats must have a name to be a pet")]
         public string Name { get; set; }
 
-        // Later, create 1-to-many relationship to Species table - Done!
+        // Later, create 1-to-many relationship to Species table
         //public string Species { get; set; }
-
 
         public Gender? Gender { get; set; }
 
-        [Display(Name = "Birth Date"), DataType(DataType.Date)] //Change the displayed unit to Birth Date instead of BirthDate
+        [DataType(DataType.Date)]
+        [Display(Name="Birth Date")]
         public DateTime? BirthDate { get; set; }
 
+        public string ProfilePicture { get; set; }
 
-
-        public string? ProfilePicture { get; set; }
-
-        [Required(ErrorMessage = "Please write something about your cat"), StringLength(100, ErrorMessage = "No more than 100 characters allowed")]
+        [Required]
+        [StringLength(100, MinimumLength = 10)]
         public string Description { get; set; }
 
         // Ratings..Comments, Reviews
         // 
+
 
         public int SpeciesId { get; set; }
         public Species Species { get; set; }
@@ -56,7 +57,6 @@ namespace AnimalCrossing.Models
         public Cat()
         {
         }
-
 
 
     }

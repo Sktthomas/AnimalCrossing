@@ -14,14 +14,11 @@ namespace AnimalCrossingTests
     {
         [Fact]
         public void TestAddMethodWithTwoPositiveNumbers()
-        {
-            //Arrange - instan. classes etc.
-            var testService = new TestService();
+   {
+            AnimalCrossing.TestService testService = new AnimalCrossing.TestService();
 
-            //Act - Call the method to test
             int result = testService.Add(2, 5);
 
-            //Assert - Check if you get the right result back
             Assert.Equal(7, result);
         }
 

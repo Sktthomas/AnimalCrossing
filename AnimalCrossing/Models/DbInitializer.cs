@@ -12,46 +12,48 @@ namespace AnimalCrossing.Models
         {
             using (var context = new AnimalCrossingContext(
                 serviceProvider.GetRequiredService<
-                    DbContextOptions<AnimalCrossingContext>>()))
+                    Microsoft.EntityFrameworkCore.DbContextOptions<AnimalCrossingContext>>()))
             {
-
-                // You add more code here to seed database.
-                // See: https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/working-with-sql?view=aspnetcore-3.0&tabs=visual-studio
-                if (!context.Species.Any())
+                if (!context.Species.Any()) //linq function
                 {
-                    var species = new Species[] {
-                        new Species { Name="Maine Coon", Description="Very big cat..." },
-                        new Species { Name="Sphynx", Description="With the right spelling" },
-                    };
-
-                    context.Species.AddRange(species);
-                    //foreach(var spec in species)
-                    //{
-                    //    context.Species.Add(spec);
-                    //}
-
+                    var species = new Species[]
+                 {
+                new Species{Name="Tabby", Description="A tabby cat"}, //not 0-indexed so this is id=1
+                new Species{Name="Calico", Description="A Calico cat"}, //notice you don't have to call constructor, but instead just add properties
+                new Species{Name="Norwegian Forest Cat", Description="A Norwegian Forest cat"}, //You can call constructor if you want though
+                new Species{Name="Siamese", Description="A Siamese cat"}
+                 };
+                    foreach (Species s in species)
+                    {
+                        context.Species.Add(s);
+                    }
                     context.SaveChanges();
                 }
 
                 if (!context.Cats.Any())
                 {
-                    var speciesType = context.Species.ToList();
+                    var speciesType = context.Species.ToList(); //Since the primary key is not reset when deleting a database, you have to create a list to be able to robustly pick the right speciesId
+                                                                //It is better to do the ToList call here, since every time that function is called, the database is accessed. If you used it while creating the cat, you would end up using a lot of data
 
                     var cats = new Cat[]
                     {
-                        new Cat{ Name="Missy", Description="Likes walks on the beach", Gender=Gender.Female, BirthDate= new DateTime(2000, 4, 3),  ProfilePicture="https://www.zooplus.dk/magasin/wp-content/uploads/2018/01/fotolia_138361424-768x658.jpg", SpeciesId= speciesType[0].SpeciesId },
-                        new Cat{ Name="Baldy", Description="Likes something ", Gender=Gender.Female, BirthDate= new DateTime(2004, 4, 3),  ProfilePicture="https://images2.minutemediacdn.com/image/upload/c_fill,g_auto,h_1248,w_2220/f_auto,q_auto,w_1100/v1555382975/shape/mentalfloss/sphinxhed.png", SpeciesId=speciesType[1].SpeciesId },
+                new Cat{Name="Fat Cat", BirthDate=new DateTime(2019, 9, 23), Description="Fat as fuck lil kitty", Gender=Gender.Male, SpeciesId=speciesType[0].SpeciesId}, //Notice that you access the Gender enum, then choose your gender within that
+                new Cat{Name="Spunky", BirthDate=new DateTime(2019, 9, 23), Description="Got a lotta spunk", Gender=Gender.Male, SpeciesId=speciesType[1].SpeciesId}, //Notice the speciesType allows us to access the first (0th) index of species, instead of the SpeciesID
+                new Cat{Name="TipTop", BirthDate=new DateTime(2019, 9, 23), Description="Best cat", Gender=Gender.Female, SpeciesId=speciesType[2].SpeciesId},
+                new Cat{Name="Somebody", BirthDate=new DateTime(2019, 9, 23), Description="Fat as fuck lil kitty", Gender=Gender.Male, SpeciesId=speciesType[3].SpeciesId}
                     };
-                    context.Cats.AddRange(cats);
+                    foreach (Cat c in cats)
+                    {
+                        context.Cats.Add(c);
 
-                    
-                    context.SaveChanges();
+                        context.SaveChanges();
+                    }
                 }
-
-
             }
 
 
         }
+
+
     }
 }

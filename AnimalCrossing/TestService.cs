@@ -1,7 +1,7 @@
 ﻿using System;
 namespace AnimalCrossing
 {
-    public class TestService
+    public class TestService 
     {
         public int Add(int a, int b)
         {
