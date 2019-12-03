@@ -61,7 +61,19 @@ namespace AnimalCrossing.Controllers
                 ViewBag.Cat = vm.Cat;
 
                 animalRepository.Save(vm.Cat);
-                
+
+                string searchString = null;
+
+                if(vm.Cat.Gender.Value.Equals(0))
+                {
+                    searchString = "1";
+                }
+                if (vm.Cat.Gender.Value.Equals(1)) ;
+                {
+                    searchString = "0";
+                }
+                List<Cat> cats = this.animalRepository.Find(searchString);
+
                 return View("Thanks", vm.Cat);
             }
 

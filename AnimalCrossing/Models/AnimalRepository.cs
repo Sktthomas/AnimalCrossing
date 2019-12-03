@@ -22,14 +22,16 @@ namespace AnimalCrossing.Models
 
         public List<Cat> Find(string searchString)
         {
-            var cats = from m in _context.Cats.Include(cat => cat.Species) //if you want to include a species in the LINQ query you can use the include method
+            var cats = from m in _context.Cats.Include(cat => cat.Species) //if you want to include a species in the LINQ query you can use the include method to eager load it
                        select m;
 
             if (!String.IsNullOrEmpty(searchString))
             {
                 cats = cats.Where(cat =>
                 cat.Name.Contains(searchString)
-                || cat.Species.Name.Contains(searchString)); //This search for whether the search string contains the name of a species
+                || cat.Species.Name.Contains(searchString) //This search for whether the search string contains the name of a species
+                || cat.Description.Contains(searchString) //This search for whether search string is contained within the description.
+                || ((int)cat.Gender).ToString().Contains(searchString)); //this search for whether the int value of the gender enum is contained within the searchstring
             }
 
             return cats.ToList();  //instead of putting it after the LINQ statement, since that would create several calls to the database context
