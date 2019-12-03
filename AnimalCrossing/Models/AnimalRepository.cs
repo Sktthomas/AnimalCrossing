@@ -29,7 +29,7 @@ namespace AnimalCrossing.Models
             {
                 cats = cats.Where(cat =>
                 cat.Name.Contains(searchString)
-                || cat.Species.Name.Contains(searchString));
+                || cat.Species.Name.Contains(searchString)); //This search for whether the search string contains the name of a species
             }
 
             return cats.ToList();  //instead of putting it after the LINQ statement, since that would create several calls to the database context
