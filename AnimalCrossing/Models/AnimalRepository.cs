@@ -27,7 +27,9 @@ namespace AnimalCrossing.Models
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                cats = cats.Where(cat => cat.Name.Contains(searchString));
+                cats = cats.Where(cat =>
+                cat.Name.Contains(searchString)
+                || cat.Species.Name.Contains(searchString));
             }
 
             return cats.ToList();  //instead of putting it after the LINQ statement, since that would create several calls to the database context
