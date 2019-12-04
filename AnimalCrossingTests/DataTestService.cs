@@ -25,5 +25,29 @@ namespace AnimalCrossingTests
         public DataTestService()
         {
         }
+
+        internal static List<Cat> GetTestAnimals()
+        {
+            var sessions = new List<Cat>();
+
+            sessions.Add(new Cat()
+            {
+                CatId = 1,
+                Name = "TestKitty1",
+                Description = "Test Kitty number 1"
+            });
+            sessions.Add(new Cat()
+            {
+                CatId = 1,
+                Name = "TestKitty2",
+                Description = "Test Kitty number 2"
+            });
+            return sessions;
+        }
+        public int Add(int a, int b)
+        {
+            return a + b;
+        }
     }
+
 }
