@@ -32,6 +32,7 @@ namespace AnimalCrossing.Controllers
         public IActionResult Index(string searchString)
         {
             List<Cat> cats = this.animalRepository.Find(searchString);
+            ViewBag.SearchString = searchString; //If we pass the searchString back as a viewBag we can retain it as a value in the search form
             return View("ShowCats", cats.ToList());
         }
 
@@ -115,6 +116,14 @@ namespace AnimalCrossing.Controllers
             animalRepository.Delete(id);
 
             return Json("200 OK");
+        }
+
+        [HttpGet]
+        public IActionResult Details(int id)
+        {
+            Cat cat = animalRepository.Get(id);
+
+            return View(cat);
         }
 
     }

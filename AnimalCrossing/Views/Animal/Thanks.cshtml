@@ -5,11 +5,11 @@
 @{
 }
 
-
+    <img src="@Url.Content(ViewBag.Cat.ProfilePicture)" />
+<br />
 Thanks, for registering @ViewBag.Cat.Name the @ViewBag.Species.Name
-
-<img src="@Url.Content(ViewBag.Cat.ProfilePicture)" />
-
+<br />
+<h3>We have prepared a selection of cats of the opposite gender for you, @ViewBag.Cat.Name </h3>
 <div class="container">
     <div class="row">
         @await Html.PartialAsync("_ShowCats", Model)

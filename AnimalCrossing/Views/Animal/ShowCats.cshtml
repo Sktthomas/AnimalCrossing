@@ -7,7 +7,7 @@
 
 <form asp-controller="Animal" asp-action="Index">
     <p>
-        Title: <input type="text" name="SearchString">
+        Title: <input type="text" name="SearchString" value="@ViewBag.SearchString">
         <input type="submit" value="Filter" />
     </p>
 </form>
