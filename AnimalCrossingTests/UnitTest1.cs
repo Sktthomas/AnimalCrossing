@@ -32,8 +32,9 @@ namespace AnimalCrossingTests
                 .Returns(DataTestService.GetTestSpecies()); //Creates test species in mock repo and sends in the hardcoded test data to the tested class
             var controller = new SpeciesController(mockRepo.Object); //Use the species controller
 
+
             // Act
-            var result = controller.Index(); //We are not doing async so no await
+            var result = controller.Index(); //We are not doing async so no await. This will run the method in question
 
             // Assert
             var viewResult = Assert.IsType<ViewResult>(result);
@@ -97,7 +98,7 @@ namespace AnimalCrossingTests
         [Fact]
         public void AddNewCatToDatabase()
         {
-            //Arrange
+            //Arrange We need to get a test version of the Animal Repository
 
             IAnimalRepository testRepo = DataTestService.GetInMemoryRepo(); //Get test repo
 
@@ -107,11 +108,11 @@ namespace AnimalCrossingTests
                 Description = "A fine test candidate"
             };
 
-            //Act
+            //Act We want to run the Save method of the repository
 
             testRepo.Save(cat);
 
-            //Assert
+            //Assert We want to make sure that the repository has saved the test object
 
             Assert.Single(testRepo.Get()); //We expect to have one single item in our repo
             Assert.Equal(cat.Name, testRepo.Get(1).Name); //We expect the item to have the name of the test item
