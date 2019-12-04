@@ -37,10 +37,10 @@ namespace AnimalCrossingTests
             var result = controller.Index(); //We are not doing async so no await. This will run the method in question
 
             // Assert
-            var viewResult = Assert.IsType<ViewResult>(result);
-            var model = Assert.IsAssignableFrom<IEnumerable<Species>>(
+            var viewResult = Assert.IsType<ViewResult>(result); //Expect a view to be the output of the method
+            var model = Assert.IsAssignableFrom<IEnumerable<Species>>( //asserts that we get a Species back
                 viewResult.ViewData.Model);
-            Assert.Equal(2, model.Count());
+            Assert.Equal(2, model.Count()); //Asserts that we get two items back from the list from the model
 
         }
 
@@ -57,7 +57,7 @@ namespace AnimalCrossingTests
             var species = new Species() //new species is creates to send in with the create function. This model is not used to check modelState, but is used cause it is required, and to assert that we get a model back.
             {
                 SpeciesId = 1,
-                Name = "", //Set name to be empty and therefore invalid, not used in test.
+                Name = "", //Set name to be empty and therefore invalid, not used in test. Just for show????
                 Description = "Dette er en test"
             };
 
