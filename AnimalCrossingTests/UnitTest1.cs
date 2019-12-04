@@ -118,6 +118,33 @@ namespace AnimalCrossingTests
 
         }
 
+        [Fact]
+        public void CatWithSameIDOverWritesCurrentCatInDB()
+        {
+            //Arrange
+            IAnimalRepository testrepo = DataTestService.GetInMemoryRepo();
+
+            var cat = new Cat()
+            {
+                Name = "TestKitty",
+                Description = "A fine test candidate"
+            };
+
+            testrepo.Save(cat);
+
+            var sameCat = testrepo.Get(1);
+
+            sameCat.Name = "TestKitty2";
+
+            //Act
+            testrepo.Save(sameCat);
+
+            //Assert
+
+            Assert.Single(testrepo.Get()); //We want there to still only be a single item in the list, since it should be overwritten
+            Assert.Equal(sameCat.Name, testrepo.Get(1).Name); //We want the name to have been updated
+        }
+
  /*       [Fact]
         public void SearchAnimal_Repository_WhenReturningOneAnimal()
         {
