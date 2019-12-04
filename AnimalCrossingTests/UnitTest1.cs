@@ -94,6 +94,30 @@ namespace AnimalCrossingTests
             mockRepo.Verify(); //Verifies that the Save code ran
         }
 
+        [Fact]
+        public void AddNewCatToDatabase()
+        {
+            //Arrange
+
+            IAnimalRepository testRepo = DataTestService.GetInMemoryRepo(); //Get test repo
+
+            var cat = new Cat() //Create test cat
+            {
+                Name = "TestKitty",
+                Description = "A fine test candidate"
+            };
+
+            //Act
+
+            testRepo.Save(cat);
+
+            //Assert
+
+            Assert.Single(testRepo.Get()); //We expect to have one single item in our repo
+            Assert.Equal(cat.Name, testRepo.Get(1).Name); //We expect the item to have the name of the test item
+
+        }
+
  /*       [Fact]
         public void SearchAnimal_Repository_WhenReturningOneAnimal()
         {

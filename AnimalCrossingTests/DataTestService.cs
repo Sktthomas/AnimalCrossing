@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using AnimalCrossing.Data;
 using AnimalCrossing.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace AnimalCrossingTests
 {
@@ -26,7 +28,7 @@ namespace AnimalCrossingTests
         {
         }
 
-        internal static List<Cat> GetTestAnimals()
+        public static List<Cat> GetTestAnimals()
         {
             var sessions = new List<Cat>();
 
@@ -48,6 +50,20 @@ namespace AnimalCrossingTests
         {
             return a + b;
         }
+        public static IAnimalRepository GetInMemoryRepo() //This helper function creates a new AnimalRepository using In-Memory Database which we can use to test repo functions
+        {
+            DbContextOptions<AnimalCrossingContext> options;
+            var builder = new DbContextOptionsBuilder<AnimalCrossingContext>();
+            builder.UseInMemoryDatabase("testDB");
+            options = builder.Options;
+            AnimalCrossingContext animalCrossingContextTest = new AnimalCrossingContext(options);
+            animalCrossingContextTest.Database.EnsureDeleted();
+            animalCrossingContextTest.Database.EnsureCreated();
+
+            return new AnimalRepository(animalCrossingContextTest);
+        }
     }
+
+
 
 }
