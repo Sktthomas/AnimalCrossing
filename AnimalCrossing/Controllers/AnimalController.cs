@@ -59,22 +59,23 @@ namespace AnimalCrossing.Controllers
             if (ModelState.IsValid) {
                 ViewBag.Thanks = vm.Cat.Name;
                 ViewBag.Cat = vm.Cat;
+                ViewBag.Species = speciesRepository.Get(vm.Cat.SpeciesId); //The species ID is the only thing known, not the name of the actual species object. Therefore we get it from the species repo
 
                 animalRepository.Save(vm.Cat);
 
                 string searchString = null;
 
-                if(vm.Cat.Gender.Value.Equals(0))
+                if(vm.Cat.Gender.Value == Gender.Male) //This will ensure that the cats shown to the newly created cat will be the opposite gender.
                 {
                     searchString = "1";
                 }
-                if (vm.Cat.Gender.Value.Equals(1)) ;
+                if (vm.Cat.Gender.Value == Gender.Female) //Apparently you can do this to compare enums
                 {
                     searchString = "0";
                 }
                 List<Cat> cats = this.animalRepository.Find(searchString);
-
-                return View("Thanks", vm.Cat);
+                //TODO: Få Christian til at vise hvordan man kan skabe partialviewet med de katte man har fået
+                return View("Thanks", cats);
             }
 
             return View(ViewModelCreator.CreateAnimalCatVm(speciesRepository));

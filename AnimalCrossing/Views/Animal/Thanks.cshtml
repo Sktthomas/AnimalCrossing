@@ -1,5 +1,4 @@
-﻿@model Cat;
-
+﻿@model List<Cat>;
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
@@ -7,12 +6,12 @@
 }
 
 
-Thanks, for registering @ViewBag.Cat.Name the @ViewBag.Cat.Species.Name 
+Thanks, for registering @ViewBag.Cat.Name the @ViewBag.Species.Name
 
-<img src="@Url.Content(ViewBag.Cat.ProfilePicture)" alt="profile picture"/>
+<img src="@Url.Content(ViewBag.Cat.ProfilePicture)" />
 
 <div class="container">
     <div class="row">
-        
+        @await Html.PartialAsync("_ShowCats", Model)
     </div>
 </div>
