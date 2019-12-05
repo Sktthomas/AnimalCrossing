@@ -146,6 +146,27 @@ namespace AnimalCrossingTests
             Assert.Equal(sameCat.Name, testrepo.Get(1).Name); //We want the name to have been updated
         }
 
+        [Fact]
+        public void DeleteCatFromDatabase()
+        {
+            //Arrange
+            IAnimalRepository testrepo = DataTestService.GetInMemoryRepo();
+
+            var cat = new Cat()
+            {
+                Name = "TestKitty",
+                Description = "A fine test candidate"
+            };
+
+            testrepo.Save(cat);
+
+            //Act
+            testrepo.Delete(testrepo.Get(1).CatId); //Delete the cat we added to the db
+
+            //Assert
+            Assert.Empty(testrepo.Get()); //Assert that the database collection is empty
+        }
+
  /*       [Fact]
         public void SearchAnimal_Repository_WhenReturningOneAnimal()
         {
