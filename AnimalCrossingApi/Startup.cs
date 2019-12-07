@@ -14,6 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using AnimalCrossingApi.Models;
 using AutoMapper;
 using AnimalCrossing.Models.ViewModels;
+using AnimalCrossing.Data;
 
 namespace AnimalCrossingApi
 {
@@ -29,8 +30,8 @@ namespace AnimalCrossingApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<AnimalApiContext>(opt =>
-               opt.UseInMemoryDatabase("TodoList"));
+            services.AddDbContext<AnimalApiContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("AnimalCrossingContext")));
 
 
             // Add automapper

@@ -75,7 +75,6 @@ namespace AnimalCrossing.Controllers
                     searchString = "0";
                 }
                 List<Cat> cats = this.animalRepository.Find(searchString);
-                //TODO: Få Christian til at vise hvordan man kan skabe partialviewet med de katte man har fået
                 return View("Thanks", cats);
             }
 

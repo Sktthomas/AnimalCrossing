@@ -19,10 +19,26 @@ namespace AnimalCrossingApi.Controllers
         private readonly AnimalApiContext _context;
         private readonly IMapper _mapper;
 
-        public CatApiController(AnimalApiContext context, IMapper mapper)
+        public CatApiController(AnimalApiContext context, IMapper mapper) //Convention over Configuration: The program knows to omit Controller from the name
         {
             _mapper = mapper;
             _context = context;
+        }
+
+        // GET: api/CatApi/FindByName
+        [HttpGet("{name}"), Route("api/CatApi/FindByName")]
+        public async Task<ActionResult<IEnumerable<AnimalCrossing.Models.Cat>>> FindByName(string name)
+        {
+            var cats = from m in _context.Cats.Include(cat => cat.Species) //if you want to include a species in the LINQ query you can use the include method to eager load it
+                       select m;
+
+            if (!String.IsNullOrEmpty(name))
+            {
+                cats = cats.Where(cat =>
+                cat.Name.Contains(name));
+            }
+
+            return cats.ToList();  //instead of putting it after the LINQ statement, since that would create several calls to the database context
         }
 
         // GET: api/CatApi
@@ -34,7 +50,7 @@ namespace AnimalCrossingApi.Controllers
         }
 
         // GET: api/CatApi/5
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")] //If you have multiple GET methods you need to give one of them an attribute with a type like this
         public async Task<ActionResult<AnimalCrossing.Models.Cat>> GetCat(int id)
         {
             var cat = await _context.Cats.FindAsync(id);
