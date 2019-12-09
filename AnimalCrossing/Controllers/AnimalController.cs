@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace AnimalCrossing.Controllers
 {
-    //[Authorize] Has been turned off to facilitate test usage of program. Turn this on to block off parts of the program from unauthorized use
+    [Authorize] //Has been turned off to facilitate test usage of program. Turn this on to block off parts of the program from unauthorized use
     public class AnimalController : Controller
     {
         private readonly IAnimalRepository animalRepository;

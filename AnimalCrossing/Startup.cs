@@ -37,19 +37,18 @@ namespace AnimalCrossing
             services.AddDbContext<AnimalCrossingContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("AnimalCrossingContext")));
 
-
             //services.AddRazorPages();
             //services.AddMvc().AddRazorPagesOptions(options =>
             //{
-                //options.Conventions.AddAreaPageRoute(areaName: "Identity",
-                //    pageName: "/Account/Login",
-                //    route: "Identity/Account/Login");
-                //options.Conventions.AuthorizeAreaPage("Identity", "/Account/Logout");
-                //options.Conventions.AuthorizeAreaPage("Admin", "/Index");D
-                //options.Conventions.AuthorizeAreaFolder("Admin", "/Users");
+            //options.Conventions.AddAreaPageRoute(areaName: "Identity",
+            //    pageName: "/Account/Login",
+            //    route: "Identity/Account/Login");
+            //options.Conventions.AuthorizeAreaPage("Identity", "/Account/Logout");
+            //options.Conventions.AuthorizeAreaPage("Admin", "/Index");D
+            //options.Conventions.AuthorizeAreaFolder("Admin", "/Users");
             //});
 
-           
+
 
 
             //services.ConfigureApplicationCookie(options =>
@@ -78,6 +77,7 @@ namespace AnimalCrossing
 
             app.UseRouting();
 
+            app.UseAuthentication(); //This might have been what did not let me log in before. Maybe it did not authenticate when not doing this?
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

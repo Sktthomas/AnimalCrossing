@@ -31,7 +31,7 @@ namespace AnimalCrossing.Areas.Identity
                 }).AddEntityFrameworkStores<AnimalCrossingIdentityDbContext>();
 
             });
-        }
+        } 
 
     }
 }
