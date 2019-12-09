@@ -18,7 +18,7 @@ namespace AnimalCrossing.Controllers
     {
         private readonly IAnimalRepository animalRepository;
         private readonly ISpeciesRepository speciesRepository;
-        private readonly AnimalCrossingContext _context;
+        private readonly AnimalCrossingContext _context; //Not used
 
         public AnimalController(IAnimalRepository animalRepo, ISpeciesRepository s)
         {

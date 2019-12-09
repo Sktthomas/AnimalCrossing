@@ -78,7 +78,7 @@ namespace AnimalCrossing
             app.UseRouting();
 
             app.UseAuthentication(); //This might have been what did not let me log in before. Maybe it did not authenticate when not doing this?
-            app.UseAuthorization();
+            app.UseAuthorization(); //Or maybe it was this one?
 
             app.UseEndpoints(endpoints =>
             {
