@@ -121,8 +121,10 @@ namespace AnimalCrossing.Controllers
         public IActionResult Details(int id)
         {
             Cat cat = animalRepository.Get(id);
+            AnimalCatVM vm = ViewModelCreator.CreateAnimalCatVm(speciesRepository);
+            vm.Cat = cat;
 
-            return View(cat);
+            return View(vm);
         }
 
     }
