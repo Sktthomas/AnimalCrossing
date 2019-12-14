@@ -96,11 +96,36 @@ namespace AnimalCrossingTests
         }
 
         [Fact]
+        public void GetCatFromDatabase()
+        {
+            //Arrange we need a test repo and a cat saved to the testrepo
+
+            IAnimalRepository testrepo = DataTestService.GetInMemoryRepo();
+
+            var cat = new Cat()
+            {
+                Name = "TestKitty",
+                Description = "A fine test candidate"
+            };
+
+            testrepo.Save(cat);
+
+            //Act we want the returned cat to be equal to the one put into the database
+
+            var result = testrepo.Get(1);
+
+            //Assert
+
+            Assert.Equal(cat, result);
+        }
+
+        [Fact]
         public void AddNewCatToDatabase()
         {
             //Arrange We need to get a test version of the Animal Repository
 
             IAnimalRepository testRepo = DataTestService.GetInMemoryRepo(); //Get test repo
+
 
             var cat = new Cat() //Create test cat
             {
@@ -155,7 +180,13 @@ namespace AnimalCrossingTests
             var cat = new Cat()
             {
                 Name = "TestKitty",
-                Description = "A fine test candidate"
+                Description = "A fine test candidate",
+                Species = new Species
+                {
+                    Name = "TestSpecies",
+                    Description = "A test species"
+                },
+                SpeciesId = 0
             };
 
             testrepo.Save(cat);
@@ -165,6 +196,34 @@ namespace AnimalCrossingTests
 
             //Assert
             Assert.Empty(testrepo.Get()); //Assert that the database collection is empty
+        }
+
+        [Fact]
+        public void FindCatFromDatabase()
+        {
+            //Arrange we want a repo, fill it with a cat, then be able to find one by running the Find() method on its name
+
+            IAnimalRepository testrepo = DataTestService.GetInMemoryRepo();
+
+            var cat = new Cat()
+            {
+                Name = "TestKitty",
+                Description = "A fine test kitty",
+                Gender = Gender.Other,
+                SpeciesId = 0,
+                Species = new Species { Name = "Testspecies", Description = "A species to test with", SpeciesId = 0}
+            };
+
+            testrepo.Save(cat);
+
+            string searchString = "Test";
+
+            //Act we want to retrieve the cat, using its name
+
+            var result = testrepo.Find(searchString);
+
+            Assert.NotEmpty(result); //We do not want result to be empty of elements
+            Assert.Equal(cat.Name, result.First().Name.ToString()); //We expect there to only be one Cat in the list, i.e. the first element.
         }
 
  /*       [Fact]
